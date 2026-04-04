@@ -13,3 +13,8 @@ Tools are organized by DCC.
 - Tools must solve a **clear production need**.
 - Avoid adding **one-off or experimental scripts**.
 - Each tool should include a **short README** explaining usage.
+
+## Version Control
+
+- All changes must be made in a **separate branch**.
+- Changes must go through **Swarm review** and receive **at least one approval** before being merged.
