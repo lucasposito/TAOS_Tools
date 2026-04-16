@@ -34,4 +34,7 @@ class StageFbxGUI(QtWidgets.QDialog):
         self.create_widgets()
 
     def create_widgets(self):
+        takes_widget = QtWidgets.QListWidget()
+        
         main_layout = QtWidgets.QVBoxLayout(self)
+        # test_button = QtWidgets.QPushButton("Test")
