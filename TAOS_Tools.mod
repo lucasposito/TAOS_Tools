@@ -1,0 +1,3 @@
++ TAOS_Tools 1.0 .
+PYTHONPATH+:=.
+MAYA_SCRIPT_PATH+:=.
