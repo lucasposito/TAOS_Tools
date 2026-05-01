@@ -4,6 +4,9 @@ from shiboken6 import wrapInstance
 from maya import OpenMayaUI
 
 
+solve_path = r'Q:\Shared drives\TAOS\mocap'
+
+
 def maya_window():
     ptr = OpenMayaUI.MQtUtil.mainWindow()
     return wrapInstance(int(ptr), QtWidgets.QWidget)
@@ -32,9 +35,35 @@ class StageFbxGUI(QtWidgets.QDialog):
         self.setWindowFlags(self.windowFlags() ^ QtCore.Qt.WindowContextHelpButtonHint)
 
         self.create_widgets()
+        self.make_connections()
 
     def create_widgets(self):
-        takes_widget = QtWidgets.QListWidget()
-        
+        self.take_name = QtWidgets.QLineEdit()
+        self.take_name.setPlaceholderText("Take Name")
+
+        self.solve_group = QtWidgets.QButtonGroup(self)
+        solve_layout = QtWidgets.QHBoxLayout()
+
+        for i, label in enumerate(['Live Solve', 'Final Solve']):
+            btn = QtWidgets.QRadioButton(label)
+            if i == 0:
+                btn.setChecked(True)
+            self.solve_group.addButton(btn, i)
+            solve_layout.addWidget(btn)
+
+        self.takes_list = QtWidgets.QListWidget()
+        self.select_button = QtWidgets.QPushButton("SELECT")
+
         main_layout = QtWidgets.QVBoxLayout(self)
-        # test_button = QtWidgets.QPushButton("Test")
+        main_layout.addWidget(self.take_name)
+        main_layout.addLayout(solve_layout)
+        main_layout.addWidget(self.takes_list)
+        main_layout.addWidget(self.select_button)
+
+    def make_connections(self):
+        self.select_button.clicked.connect(self.print_everything)
+
+    def print_everything(self):
+        take_name = self.take_name.text()
+        solve_type = self.solve_group.checkedButton().text()
+        print(f"Take Name: {take_name}, Solve Type: {solve_type}")
